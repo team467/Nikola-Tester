@@ -22,19 +22,23 @@ def gui_loop(text, slider):
   This function is called repeatedly by the GUI event loop.
   """
 
-  now = datetime.datetime.now().strftime("%H:%M:%S.%f")[:-3]
-  text.value = now
-  slider.value = time.time()*100 % 1000
+  # Check the position of the rotary encoder and report new values.
+  rot_position = rotary_encoder.get_position()
+  slider.value = rot_position/4 % 100
 
-  global current_key
-  old_key = keys[current_key // 4][current_key % 4]
-  old_key.bg = "gray"
-  old_key.text_color = "black"
+  # Reset key press indicators
+  for row in range(4):
+    for col in range(4):
+      keys[row][col].bg = "gray"
+      keys[row][col].text_color = "black"
 
-  current_key = (current_key + 1) % 16
-  new_key = keys[current_key // 4][current_key % 4]
-  new_key.bg = "black"
-  new_key.text_color = "white"
+  new_keys = keypad.scan()
+  for current_key in new_keys:
+    # Map key character to number
+    r,c = keypad.rowCol[current_key]
+    key = keys[r][c]
+    key.bg = "black"
+    key.text_color = "white"
 
 
 def main():
@@ -72,11 +76,14 @@ def gui_main():
       key = Text(keybox, grid=[col,row], text=keypad.names[row][col], size=24)
       keys[row].append(key)
 
-  slider = Slider(app, height=36, width="fill", end=1000)
+  slider = Slider(app, height=36, width="fill", end=100)
   slider.bg = "blue"
   slider.text_color = "white"
 
-  app.repeat(300, gui_loop, args=[text, slider])
+  app.repeat(100, gui_loop, args=[text, slider])
+
+  keypad.init()
+  rotary_encoder.init()
 
   app.set_full_screen()
   app.display()

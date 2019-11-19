@@ -73,7 +73,7 @@ def create_encoder(pin):
   return encoder
 
 
-# Initialize the GPIO pins needed to read the keypad.
+# Initialize the GPIO pins needed to read the rotary encoder and button.
 def init():
   """Initialize the GPIO pins needed to read a rotary encoder with push button."""
   global encoder_a, encoder_b, button

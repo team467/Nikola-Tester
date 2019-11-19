@@ -11,9 +11,33 @@ names = [
   ["7", "8", "9", "C"],
   ["*", "0", "#", "D"]]
 
+rowCol = {
+  "1": [0, 0],
+  "2": [0, 1],
+  "3": [0, 2],
+  "A": [0, 3],
+  "4": [1, 0],
+  "5": [1, 1],
+  "6": [1, 2],
+  "B": [1, 3],
+  "7": [2, 0],
+  "8": [2, 1],
+  "9": [2, 2],
+  "C": [2, 3],
+  "*": [3, 0],
+  "0": [3, 1],
+  "#": [3, 2],
+  "D": [3, 3]
+}
+
+
+
+
 # The GPIO pin numbers for each row and column
-row_pins = [6, 13, 19, 26]
-col_pins = [12, 16, 20, 21]
+#row_pins = [6, 13, 19, 26]
+#col_pins = [12, 16, 20, 21]
+row_pins = [2, 3, 4, 26]
+col_pins = [14, 15, 23, 21]
 
 # The objects representing the GPIO input/output pins.
 row_gpios = []
